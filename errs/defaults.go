@@ -2,7 +2,7 @@ package errs
 
 import (
 	"errors"
-	"github.com/bektosh03/pkg/models/responses"
+	"github.com/bektosh03/pkg/models"
 	"github.com/gin-gonic/gin"
 	"net/http"
 
@@ -17,7 +17,7 @@ var (
 		Then: func(c *gin.Context, msg string) {
 			c.JSON(
 				http.StatusInternalServerError,
-				responses.ErrorResponse{
+				models.ErrorResponse{
 					Error:   codes.Internal.String(),
 					Message: msg,
 				},
@@ -35,7 +35,7 @@ var (
 		Then: func(c *gin.Context, msg string) {
 			c.JSON(
 				http.StatusInternalServerError,
-				responses.ErrorResponse{
+				models.ErrorResponse{
 					Error:   codes.Internal.String(),
 					Message: msg,
 				},

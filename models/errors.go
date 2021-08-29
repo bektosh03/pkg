@@ -1,4 +1,4 @@
-package responses
+package models
 
 type ErrorResponse struct {
 	Error   string `json:"error"`
