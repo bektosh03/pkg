@@ -2,7 +2,7 @@ package errs
 
 import "github.com/gin-gonic/gin"
 
-func (h *handler) Check(err error, c *gin.Context) (yes bool) {
+func (h *Handler) Check(err error, c *gin.Context) (yes bool) {
 	if err == nil {
 		return false
 	}

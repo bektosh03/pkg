@@ -24,7 +24,7 @@ type Error struct {
 	Then AbortionFunc
 }
 
-type handler struct {
+type Handler struct {
 	aborts []Abort
 	errs   []Error
 }
@@ -32,23 +32,23 @@ type handler struct {
 type HandlerBuilder interface {
 	WithAborts(aborts ...Abort) HandlerBuilder
 	WithErrors(errs ...Error) HandlerBuilder
-	Build() *handler
+	Build() *Handler
 }
 
 func NewHandlerBuilder() HandlerBuilder {
-	return new(handler)
+	return new(Handler)
 }
 
-func (h *handler) WithAborts(aborts ...Abort) HandlerBuilder {
+func (h *Handler) WithAborts(aborts ...Abort) HandlerBuilder {
 	h.aborts = append(h.aborts, aborts...)
 	return h
 }
 
-func (h *handler) WithErrors(errs ...Error) HandlerBuilder {
+func (h *Handler) WithErrors(errs ...Error) HandlerBuilder {
 	h.errs = append(h.errs, errs...)
 	return h
 }
 
-func (h *handler) Build() *handler {
+func (h *Handler) Build() *Handler {
 	return h
 }

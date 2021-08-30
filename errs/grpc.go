@@ -6,7 +6,7 @@ import (
 	"google.golang.org/grpc/status"
 )
 
-func (h *handler) CheckGrpc(err error, c *gin.Context) (aborted bool) {
+func (h *Handler) CheckGrpc(err error, c *gin.Context) (aborted bool) {
 	if err == nil {
 		return false
 	}
