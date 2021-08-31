@@ -9,6 +9,14 @@ import (
 	"google.golang.org/grpc/codes"
 )
 
+// Default errors
+
+var (
+	ErrInternal = errors.New("something went wrong")
+	ErrBadPageValue = errors.New("bad value for page")
+	ErrBadLimitValue = errors.New("bad value for limit")
+)
+
 // Default Aborts
 
 var (
@@ -42,8 +50,4 @@ var (
 			)
 		},
 	}
-)
-
-var (
-	ErrInternal = errors.New("something went wrong")
 )

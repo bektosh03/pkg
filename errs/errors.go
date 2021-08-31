@@ -1,6 +1,9 @@
 package errs
 
-import "github.com/gin-gonic/gin"
+import (
+	"errors"
+	"github.com/gin-gonic/gin"
+)
 
 func (h *Handler) Check(err error, c *gin.Context) (yes bool) {
 	if err == nil {
@@ -13,7 +16,7 @@ func (h *Handler) Check(err error, c *gin.Context) (yes bool) {
 
 func matchError(errs []Error, err error) Error {
 	for _, er := range errs {
-		if err == er.When {
+		if errors.Is(err, er.When) {
 			return er
 		}
 	}
