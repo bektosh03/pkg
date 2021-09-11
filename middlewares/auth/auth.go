@@ -49,16 +49,19 @@ func New(args JwtAuthArgs) JwtAuth {
 
 func (a JwtAuth) Authentication(c *gin.Context) {
 	tokenString := c.GetHeader("Authorization")
-	claims, err := a.ExtractClaims(tokenString)
-	if err != nil {
-		c.AbortWithStatusJSON(http.StatusForbidden, models.ErrorResponse{
-			Error:   err.Error(),
-			Message: "Invalid access token",
-		})
-	}
-	role := claims["role"]
+	role := "unauthorized"
 	path := c.Request.URL.Path
 	method := c.Request.Method
+	if tokenString != "" {
+		claims, err := a.ExtractClaims(tokenString)
+		if err != nil {
+			c.AbortWithStatusJSON(http.StatusForbidden, models.ErrorResponse{
+				Error:   err.Error(),
+				Message: "Invalid access token",
+			})
+		}
+		role = claims["role"].(string)
+	}
 	allowed, err := a.enforcer.Enforce(role, path, method)
 	if err != nil {
 		c.AbortWithStatusJSON(http.StatusForbidden, models.ErrorResponse{
