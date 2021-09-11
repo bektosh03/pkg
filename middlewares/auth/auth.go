@@ -18,8 +18,8 @@ type JwtAuth struct {
 type JwtAuthArgs struct {
 	SigningKey   []byte
 	UseFile      bool
-	FileAdapter  fileadapter.Adapter
-	SqlAdapter   sqladapter.Adapter
+	FileAdapter  *fileadapter.Adapter
+	SqlAdapter   *sqladapter.Adapter
 	PathToPolicy string
 }
 
