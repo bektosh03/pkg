@@ -5,7 +5,7 @@ import (
 	"google.golang.org/grpc/codes"
 )
 
-type AbortionFunc func(c *gin.Context, msg string)
+type AbortionFunc func(c *gin.Context, err error, msg string)
 
 // Abort defines an object for abortion in accordance to code.Code
 // that is contained in status.Status (see https://google.golang.org/grpc/status#Status)

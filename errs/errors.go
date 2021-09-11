@@ -10,7 +10,7 @@ func (h *Handler) Check(err error, c *gin.Context) (yes bool) {
 		return false
 	}
 	er := matchError(h.errs, err)
-	er.Then(c, er.Msg)
+	er.Then(c, err, er.Msg)
 	return true
 }
 

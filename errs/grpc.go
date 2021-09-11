@@ -12,10 +12,10 @@ func (h *Handler) CheckGrpc(err error, c *gin.Context) (aborted bool) {
 	}
 	st, ok := status.FromError(err)
 	if ok {
-		matchStatusCode(h.aborts, st.Code()).Then(c, st.Message())
+		matchStatusCode(h.aborts, st.Code()).Then(c, st.Err(), st.Message())
 		return true
 	}
-	DefaultInternalAbort.Then(c, "something went wrong")
+	DefaultInternalAbort.Then(c, ErrInternal, "something went wrong")
 	return true
 }
 

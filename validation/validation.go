@@ -3,7 +3,7 @@ package validation
 import "regexp"
 
 type Validation interface {
-	Email(email string) bool
+	Email(email string) error
 }
 
 func New() Validation {
