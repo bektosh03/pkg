@@ -78,13 +78,14 @@ func (a JwtAuth) Authentication(c *gin.Context) {
 }
 
 func initEnforcer(enforcer *casbin.Enforcer) {
-	err := enforcer.LoadPolicy()
-	if err != nil {
-		log.Fatalln("error while loading policy", err)
-	}
-	err = enforcer.LoadModel()
+	enforcer.EnableLog(true)
+	err := enforcer.LoadModel()
 	if err != nil {
 		log.Fatalln("error while loading model", err)
+	}
+	err = enforcer.LoadPolicy()
+	if err != nil {
+		log.Fatalln("error while loading policy", err)
 	}
 	err = enforcer.SavePolicy()
 	if err != nil {
