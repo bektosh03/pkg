@@ -23,7 +23,7 @@ type JwtAuthArgs struct {
 	PathToPolicy string
 }
 
-func New(args JwtAuthArgs) JwtAuth {
+func New(args JwtAuthArgs, devMode bool) JwtAuth {
 	if len(args.SigningKey) < 1 {
 		panic("signing key cannot have length of zero")
 	}
@@ -39,7 +39,7 @@ func New(args JwtAuthArgs) JwtAuth {
 	if err != nil {
 		log.Fatalln("cannot create new enforcer", err)
 	}
-	initEnforcer(enforcer)
+	initEnforcer(enforcer, devMode)
 
 	return JwtAuth{
 		signingKey: args.SigningKey,
@@ -77,8 +77,8 @@ func (a JwtAuth) Authentication(c *gin.Context) {
 	}
 }
 
-func initEnforcer(enforcer *casbin.Enforcer) {
-	enforcer.EnableLog(true)
+func initEnforcer(enforcer *casbin.Enforcer, devMode bool) {
+	enforcer.EnableLog(devMode)
 	err := enforcer.LoadModel()
 	if err != nil {
 		log.Fatalln("error while loading model", err)
